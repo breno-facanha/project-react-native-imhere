@@ -9,31 +9,35 @@ export default function Home() {
     const[participants, setParticipants] = useState<string[]>([])
     const[participantsName, setParticipantsName] = useState('')
 
-
-
-
     function handeParticipantAdd(){
-        if(participants.includes(participantsName)){
+      
+        if(participantsName.trim() == ''){
+            return Alert.alert("Inválido", "Preencha o campo corretamente")
+        }
+
+        if(participants.includes(participantsName.trim())){
             return Alert.alert("Participante já existe", "Já existe um participante na lista com esse nome")
         }
 
-        setParticipants(prevState => [...prevState, participantsName])
+        setParticipants(prevState => [...prevState, participantsName.trim()])
         setParticipantsName('')
     }
 
     function handleParticipantRemove(name: string){
+
         Alert.alert("Remover", `Remover o participante ${name} ?`, [
             {
                 text: 'Sim',
-                onPress: () => Alert.alert("Participante Deletado")
+                onPress: () => setParticipants(ola => ola.filter(participant => participant !==name))
             },
             {
                 text: 'Não',
                 style: 'cancel'
             }
         ])
-        console.log(`Você clicou em remover participante ${name}`)
     }
+
+
 
   return (
     <View style={styles.container}>
