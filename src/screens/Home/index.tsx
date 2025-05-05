@@ -1,6 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput  } from 'react-native';
-import { Fragment } from 'react'
+
+import { Participant } from '../../components/Participant';
+
 import { styles } from './style';
 
 export default function Home() {
@@ -18,25 +20,26 @@ export default function Home() {
         Domingo, 04 de Maio de 2025
       </Text>
 
-      <TextInput 
-        style={styles.input}
-        placeholder='Nome do participante'  
-        placeholderTextColor="#6B6B6B"
-        keyboardType='numeric'
-      />
+      <View style={styles.form}>
+        <TextInput 
+            style={styles.input}
+            placeholder='Nome do participante'  
+            placeholderTextColor="#6B6B6B"
+            keyboardType='numeric'
+        />
 
-      <TouchableOpacity style={styles.button} onPress={handeParticipantAdd}>
-        <Text style={styles.buttonText}>
-            +
-        </Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handeParticipantAdd}>
+            <Text style={styles.buttonText}>
+                +
+            </Text>
+        </TouchableOpacity>
+      </View>
 
-      <TouchableOpacity style={styles.botao}>
-        <Text style={styles.textBotao}>Olá mundo</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.botao}>
-        <Text style={styles.textBotao}>Olá mundo</Text>
-      </TouchableOpacity>
+      <Participant name="Breno"/>
+      <Participant name="Samara"/>
+      <Participant name="Sofia"/>
+      <Participant name="Bento"/>
+      
       <StatusBar style="auto" />
     </View>
   );

@@ -17,21 +17,14 @@ export const styles = StyleSheet.create({
     fontSize: 16
   },
   input:{
+    flex: 1,
     height: 56,
     borderRadius: 5,
     backgroundColor: '#1F1E25',
     color: '#FFF',
     padding: 16,
     fontSize: 16,
-  },
-  botao: {
-    backgroundColor: 'blue',
-    padding: 10,
-    borderRadius: 10
-  },
-  textBotao:{
-    color: 'white', 
-    fontWeight: 'bold'
+    marginRight: 12
   },
   buttonText:{
     color: 'white',
@@ -44,5 +37,11 @@ export const styles = StyleSheet.create({
     backgroundColor: '#31CF67',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  form:{
+    width: '100%',
+    flexDirection: 'row',
+    marginTop: 35,
+    marginBottom: 42
   }
 });
