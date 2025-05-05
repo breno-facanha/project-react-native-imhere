@@ -1,14 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput  } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, FlatList, Alert  } from 'react-native';
 
 import { Participant } from '../../components/Participant';
 
 import { styles } from './style';
+import { useState } from 'react';
 
 export default function Home() {
+    const[participants, setParticipants] = useState<string[]>([])
+    const[participantsName, setParticipantsName] = useState('')
+
+
+
 
     function handeParticipantAdd(){
-        console.log('vc clicou no botão de adicionar')
+        if(participants.includes(participantsName)){
+            return Alert.alert("Participante já existe", "Já existe um participante na lista com esse nome")
+        }
+
+        setParticipants(prevState => [...prevState, participantsName])
+        setParticipantsName('')
+    }
+
+    function handleParticipantRemove(name: string){
+        Alert.alert("Remover", `Remover o participante ${name} ?`, [
+            {
+                text: 'Sim',
+                onPress: () => Alert.alert("Participante Deletado")
+            },
+            {
+                text: 'Não',
+                style: 'cancel'
+            }
+        ])
+        console.log(`Você clicou em remover participante ${name}`)
     }
 
   return (
@@ -25,7 +49,8 @@ export default function Home() {
             style={styles.input}
             placeholder='Nome do participante'  
             placeholderTextColor="#6B6B6B"
-            keyboardType='numeric'
+            onChangeText={text => setParticipantsName(text)}
+            value={participantsName}
         />
 
         <TouchableOpacity style={styles.button} onPress={handeParticipantAdd}>
@@ -35,12 +60,26 @@ export default function Home() {
         </TouchableOpacity>
       </View>
 
-      <Participant name="Breno"/>
-      <Participant name="Samara"/>
-      <Participant name="Sofia"/>
-      <Participant name="Bento"/>
+      {/* <Participant name="Breno" onRemove={() => handleParticipantRemove('Breno')}/> */}
+      <FlatList 
+        data={participants}
+        keyExtractor={item => item}
+        renderItem={( {item} ) => (
+            <Participant 
+                    key = {item}
+                    name={item}
+                    onRemove={() => handleParticipantRemove(item)}
+                />
+        )}
+        showsVerticalScrollIndicator={false} 
+        ListEmptyComponent={() => (
+            <Text style={styles.listEmptyText}>
+                Ninguém chegou ao evento ainda ? Adicione os participantes  a sua lista de presença.
+            </Text>
+        )}
+      />
       
-      <StatusBar style="auto" />
+      
     </View>
   );
 }
